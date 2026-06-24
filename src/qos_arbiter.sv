@@ -22,7 +22,7 @@ comparator_tree_inst (
 );
 
 always_comb begin
-  for ( int i = 0; i < REQ___WIDTH; i++ ) grant_o[i] = qos_i[i] == max_o;
+  for ( int i = 0; i < REQ___WIDTH; i++ ) grant_o[i] = ( qos_i[i] == max_o ) | ( qos_i[i]  == {QOS_WIDTH{1'b0}} );
 end
 
 endmodule

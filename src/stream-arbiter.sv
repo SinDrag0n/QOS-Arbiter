@@ -32,6 +32,30 @@ logic [STREAM_COUNT - 1:0] grant;
 
 logic [T_ID___WIDTH - 1:0] grant_dcd;
 
+assign req    = s_valid_i;
+assign m_id_o = grant_dcd; // bin from one-hot
+
+always_ff @( posedge clk_i ) begin
+  if ( ~rst_n ) begin
+    req <= {STREAM_COUNT{1'b0}};
+  end else begin
+    req <= ;
+  end
+end
+
+
+arbiter # (
+  .REQ_WIDTH ( STREAM_COUNT ),
+  .QOS_WIDTH ( T_QOS_WIDTH  )
+)
+arbiter_inst (
+  .clk_i      ( clk_i        ),
+  .rst_n      ( rst_n        ),
+  .req_i      ( req          ),
+  .qos_i      ( qos_i        ),
+  .grant_o    ( grant        )
+);
+
 onehot-decoder # (
   .INPUT__WIDTH(STREAM_COUNT),
   .OUTPUT_WIDTH(T_ID___WIDTH)
@@ -41,16 +65,6 @@ onehot-decoder_inst (
   .bin_o    ( grant_dcd )
 );
 
-assign req    = s_valid_i;
-assign m_id_o = grant_dcd; // bin from one-hot
-
-
-
-// Round robin arbiter
-
-
-
-// Static priority for QoS
 
 
 assign input_handshake = s_valid_i & s_ready_o;

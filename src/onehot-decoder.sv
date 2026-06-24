@@ -1,4 +1,4 @@
-module onehot-decoder #(
+module onehot_decoder #(
     parameter int INPUT__WIDTH = 8,
     parameter int OUTPUT_WIDTH = $clog2( INPUT__WIDTH )
 )(
@@ -7,7 +7,7 @@ module onehot-decoder #(
 );
 
 always_comb begin
-  bin_o   = '0;
+  bin_o = '0;
   for (int i = 0; i < OUTPUT_WIDTH; i++) if (onehot_i[i]) bin_o   = BIN_WIDTH'(i);
 end
 
