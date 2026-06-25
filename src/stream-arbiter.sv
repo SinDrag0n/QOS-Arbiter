@@ -96,7 +96,7 @@ always_ff @( posedge clk_i ) begin
     m_id_ff    <= {T_ID___WIDTH{1'b0}};
     m_qos_ff   <= {T_QOS__WIDTH{1'b0}};
   end else begin
-    if ( ( m_ready_i | ~m_valid_o ) & input_handshake[grant_dcd] ) begin
+    if ( input_handshake[grant_dcd] ) begin
       m_data_ff  <= s_data_i[grant_dcd];
       m_id_ff    <= grant_dcd;
       m_qos_ff   <= s_qos_i[grant_dcd];
