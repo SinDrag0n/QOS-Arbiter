@@ -1,6 +1,6 @@
 module comparator_tree #(
-  parameter int DATA_WIDTH = 8,
-  parameter int NUM__WORDS = 5
+  parameter DATA_WIDTH = 8,
+  parameter NUM__WORDS = 5
 )(
   input  logic clk_i,
   input  logic rst_n,
@@ -33,7 +33,7 @@ generate
     for ( genvar row = 1; row <= column_last_idx( col ); row = row + 2 ) begin // begin from 2nd element of column
       comparator #(
         .DATA_WIDTH ( DATA_WIDTH )
-      )(
+      )comp_inst(
         .clk_i  ( clk_i ),
         .rstn_i ( rst_n ),
         .a_i    ( comp_tree[col][row - 1]    ),
@@ -45,7 +45,7 @@ generate
     if ( iter_div( col ) % 2 ) begin
       delay_block #(
         .DATA_WIDTH ( DATA_WIDTH )
-      )(
+      )delay_block_inst(
         .clk_i  ( clk_i ),
         .rstn_i ( rst_n ),
         .data_i ( comp_tree[col]  [column_last_idx( col )]    ),
