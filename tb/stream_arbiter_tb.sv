@@ -125,18 +125,6 @@ begin
 end
 endtask
 
-// task monitor();
-//   repeat ( TEST_AMMOUNT ) begin
-//     @( negedge clk_i );
-//       if ( q_valid_o )
-//       q_expected = ( ( a_queue.pop_back() - b_queue.pop_back() ) * ( 1 + 3 * c_queue.pop_back() ) - 4 * d_queue.pop_back() ) / 2;
-
-//       if ( q_expected != q_o ) begin
-//         $error("Wrong output data, expected %d, got %d at moment: %t", q_expected, q_o, $time());
-//       end
-//   end
-// endtask
-
 initial begin
   reset();
   driver();
